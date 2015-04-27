@@ -3,16 +3,12 @@
 <head>
     <meta charset="utf-8">
     <title>NBA Stats</title>
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
-    <style>
-        html { overflow-y:scroll; }
-        body { padding-top:50px; }
-    </style>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
-    <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-   <!--  // <script src="../lib/d3" charset="utf-8"></script> -->
-    <script src="core.js"></script>
+    <script src="lib/d3/d3.min.js" charset="utf-8"></script>
+    <script src="app.js"></script>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body ng-controller="mainController">
@@ -22,6 +18,7 @@
     </div>
     <div class="row">
       <div class="col-sm-8 col-sm-offset-2 text-center">
+      <player-info ng-model="selection"></player-info>
         <form>
           <div class="form-group">
             <select ng-model="selection" ng-options="item.name for item in items"> 
@@ -29,6 +26,7 @@
           </div>
           <button type="submit" class="btn btn-primary btn-lg" ng-click="getLeaders()">Get Leaders</button>
         </form>
+
       </div>
     </div>
     <bar-graph data="data"></bar-graph>

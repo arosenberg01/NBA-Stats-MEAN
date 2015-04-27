@@ -1,0 +1,48 @@
+body { 
+  padding-top:50px; 
+}
+
+.jumbotron {
+  padding-top: 24px;
+  padding-bottom: 24px;
+}
+
+.row {
+  margin-bottom: 20px;
+}
+
+.form-group {
+  display: inline;
+}
+
+.btn-primary {
+  background-color: #333;
+  border: 0;
+}
+
+.btn-primary:focus {
+  background-color: #333;
+}
+
+.btn-primary:hover {
+  background-color: #888;
+}
+
+select {
+  margin-right: 30px;
+  height: 44px;
+  vertical-align: middle;
+}
+
+div.tooltip {   
+  position: absolute;           
+  text-align: center;           
+  width: 60px;                  
+  height: 28px;                 
+  padding: 2px;             
+  font: 12px sans-serif;        
+  background: lightsteelblue;   
+  border: 0px;      
+  border-radius: 8px;           
+  pointer-events: none;         
+}
