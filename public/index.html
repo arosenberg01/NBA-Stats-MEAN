@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html ng-app="nbaApp">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>NBA Stats</title>
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <style>
+        html { overflow-y:scroll; }
+        body { padding-top:50px; }
+        #todo-list { margin-bottom:30px; }
+    </style>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+    <script src="core.js"></script>
+</head>
+
+<body ng-controller="mainController">
+    <div class="container">
+
+
+        <div class="jumbotron text-center">
+            <h1>I'm a Todo-aholic <span class="label label-info">{{ todos.length }}</span></h1>
+        </div>
+
+        <!-- FORM TO CREATE TODOS -->
+        <div id="todo-form" class="row">
+            <div class="col-sm-8 col-sm-offset-2 text-center">
+                <form>
+                    <div class="form-group">
+
+                        <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
+<!-- 
+                        <select name="leaders">
+                          <option value="points_per_game">Points</option>
+                          <option value="assists_per_game">Assists</option>
+                          <option value="rebounds_per_game">Rebounds</option> -->
+
+                          <select ng-model="selection" ng-options="item.name for item in items"> 
+                        </select>
+                    </div>
+
+                    <!-- createToDo() WILL CREATE NEW TODOS -->
+                    <button type="submit" class="btn btn-primary btn-lg" ng-click="getLeaders($('select').val())">Get Leaders</button>
+                </form>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>
