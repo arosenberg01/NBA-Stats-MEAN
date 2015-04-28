@@ -8,8 +8,6 @@ var nbaApp = angular.module('nbaApp', []);
 nbaApp.controller('mainController', function($scope, $http) {
   $scope.data = {};
 
-  $scope.test = "blehh"
-
   $scope.items = [
     { category: 'points_per_game', name: 'Points per game' },
     { category: 'assists_per_game', name: 'Assists per game' },
@@ -31,7 +29,7 @@ nbaApp.controller('mainController', function($scope, $http) {
     $http.get('/' + $scope.selection.category)
       .success(function(data) {
           $scope.data = data;
-          console.log(data);
+          $scope.data.stat = $scope.selection.name
           $scope.$apply();
       })
       .error(function(data) {
@@ -40,7 +38,7 @@ nbaApp.controller('mainController', function($scope, $http) {
   };
 
 });
-
+ 
 nbaApp.directive('barGraph', function($timeout, $window) {
   var link = function(scope, element, attr) {
 
@@ -49,8 +47,6 @@ nbaApp.directive('barGraph', function($timeout, $window) {
         .style("position", "absolute")
         .style("z-index", "10")
         .style("visibility", "hidden")
-        .text("a simple tooltip");
-
 
     var svg = d3.select(element[0])
       .append('svg')
@@ -64,13 +60,8 @@ nbaApp.directive('barGraph', function($timeout, $window) {
       var barHeight = 20;
       var barPadding = 5;
 
-      // scope.$watch(function() {
-      //     return angular.element($window)[0].innerWidth;
-      //   }, function() {
-      //     scope.render(scope.data);
-      //   });
-
       scope.render = function(data) {
+        console.log(data.stat);
      
         svg.selectAll('*').remove();
 
@@ -107,40 +98,27 @@ nbaApp.directive('barGraph', function($timeout, $window) {
                 return xScale(d.value);
               })
               
-           svg.selectAll('text')
-             .data(data)
-             .enter()
-              .append('text')
-              .attr('fill', '#fff')
-              .attr('y', function(d,i) {
-                return i * (barHeight + barPadding) + 15;
-              })
-              .attr('x', 15)
-              .text(function(d) {
-                return d.display_name + " (" + d.value + ")";
-              })
-              .on("mouseover", function(d){return tooltip.style("visibility", "visible")
-                .html('<div>' + d.display_name + '</div>'
-                  + '<div>Rank: ' + d.rank + '</div>'
-                  + '<div>Team: ' + d.team.full_name + '</div>'
-                );})
-              .on("mousemove", function(){return tooltip.style("top",
-                  (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+100)+"px");})
-              .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
-              // .on('mouseover', function(d, i) {
-              //   return "log(" + i + ")"
-              // });
-              // .attr("onmouseover", function(d, i) {
-
-              
-
-
-                // return "log(" + i + ")"
-             
-              // .attr("onmouseexit", function(d, i) {
-              //   return "log(" + i + ")"
-              // });
-
+          svg.selectAll('text')
+            .data(data)
+            .enter()
+            .append('text')
+            .attr('fill', '#fff')
+            .attr('y', function(d,i) {
+              return i * (barHeight + barPadding) + 15;
+            })
+            .attr('x', 15)
+            .text(function(d) {
+              return d.display_name + " (" + d.value + ")";
+            })
+            .on("mouseover", function(d){return tooltip.style("visibility", "visible")
+              .html('<div class="popup-box" ><div class="player-name">' + d.display_name + '</div>'
+                + '<div class="popup">' + data.stat + ': ' + d.value + '</div>'
+                + '<div class="popup">Rank: ' + d.rank + '</div>'
+                + '<div class="popup">Team: ' + d.team.full_name + '</div></div>'
+              );})
+            .on("mousemove", function(){return tooltip.style("top",
+                (d3.event.pageY-10)+"px").style("left",(d3.event.pageX+100)+"px");})
+            .on("mouseout", function(){return tooltip.style("visibility", "hidden");});
         }, 200);
       };
 
